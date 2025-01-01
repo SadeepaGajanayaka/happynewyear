@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year 2025!</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #000000, #d63384);
+            background-size: cover;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            position: relative;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            text-align: center;
+            z-index: 2;
+            position: relative;
+            padding-top: 50px;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            animation: gradientText 3s infinite;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4, #fbc2eb, #ff9a9e);
+            background-size: 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+
+        p {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            animation: slideIn 2s ease-out;
+        }
+
+        .quotes {
+            margin: 20px 0;
+            font-style: italic;
+            font-size: 1.2rem;
+            animation: fadeIn 3s ease-in;
+        }
+
+        .extra-content {
+            margin-top: 30px;
+            font-size: 1.5rem;
+            animation: fadeInUp 2s ease-in-out;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: moveParticles 10s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            0% { transform: translateY(30px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes moveParticles {
+            0% {
+                transform: translateY(0) scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        @keyframes gradientText {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .heart-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            p {
+                font-size: 1.2rem;
+            }
+
+            .quotes {
+                font-size: 1rem;
+            }
+
+            .extra-content {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            .quotes {
+                font-size: 0.9rem;
+            }
+
+            .extra-content {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Happy New Year 2025!</h1>
+        <p>Dear My Love, I wish You a very Happy New Year..!</p>
+
+        <div class="quotes">
+            <p>"Every moment spent with you is like a beautiful dream come true."</p>
+            <p>"With you, every day feels like the start of an incredible adventure."</p>
+            <p>"You are my today and all of my tomorrows."</p>
+        </div>
+
+        <div class="extra-content">
+            <p>You mean the world to me, my love. My heart beats for you, and my days are brighter because of your presence.</p>
+            <p>"You are the most beautiful chapter of my life, and I will cherish you forever."</p>
+            <p>"I love you more than words can express, more than the stars can shine, and more than the universe can comprehend."</p>
+            <p>~Miray</p>
+        </div>
+    </div>
+
+    <canvas class="heart-rain"></canvas>
+
+    <script>
+        const canvas = document.querySelector('.heart-rain');
+        const ctx = canvas.getContext('2d');
+
+
+        function resizeCanvas() {
+            const ratio = window.devicePixelRatio || 1;
+            canvas.width = window.innerWidth * ratio;
+            canvas.height = window.innerHeight * ratio;
+            ctx.scale(ratio, ratio);
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const hearts = [];
+
+        function createHeart() {
+            const x = Math.random() * canvas.width / (window.devicePixelRatio || 1);
+            const y = -20;
+            const size = Math.random() * 10 + 5;
+            const speed = Math.random() * 2 + 1; 
+            hearts.push({ x, y, size, speed });
+        }
+
+        function drawHearts() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hearts.forEach((heart, index) => {
+                ctx.save();
+                ctx.translate(heart.x, heart.y);
+                ctx.fillStyle = 'rgba(255, 20, 147, 0.8)';
+                ctx.beginPath();
+                const topCurveHeight = heart.size * 0.3;
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(
+                    -heart.size / 2, -topCurveHeight,
+                    -heart.size, topCurveHeight,
+                    0, heart.size
+                );
+                ctx.bezierCurveTo(
+                    heart.size, topCurveHeight,
+                    heart.size / 2, -topCurveHeight,
+                    0, 0
+                );
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+
+                heart.y += heart.speed;
+                if (heart.y > canvas.height / (window.devicePixelRatio || 1)) {
+                    hearts.splice(index, 1);
+                }
+            });
+        }
+
+        function animate() {
+            drawHearts();
+            if (Math.random() < 0.2) {
+                createHeart();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
